@@ -1,7 +1,7 @@
 {
     "name": "moc/redirects",
     "type": "typo3-flow-package",
-    "description": "Add description here",
+    "description": "TYPO3 Neos package that allows for entering an old URL that will be redirected to the page",
     "require": {
 		"typo3/neos": "1.2.*"
     },

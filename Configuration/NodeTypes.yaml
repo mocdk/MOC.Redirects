@@ -20,7 +20,3 @@
 'TYPO3.Neos:Document':
   superTypes:
     'MOC.Redirects:RedirectUrlMixin': 'MOC.Redirects:RedirectUrlMixin'
-
-#'TYPO3.Neos:Shortcut':
-#  superTypes:
-#    'MOC.Redirects:RedirectUrlMixin': ~

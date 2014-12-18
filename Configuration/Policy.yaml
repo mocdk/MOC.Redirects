@@ -1,0 +1,8 @@
+resources:
+  methods:
+    MOC_Redirects_Controller_RedirectController: 'method(MOC\Redirects\Controller\RedirectController->redirectAction())'
+
+acls:
+  Everybody:
+    methods:
+      MOC_Redirects_Controller_RedirectController: GRANT

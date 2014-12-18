@@ -2,10 +2,11 @@
   name:  'TYPO3 Neos - Frontend - Redirect'
   uriPattern: '{path}'
   defaults:
-    '@package':    'Your.Package'
-    '@controller': 'Frontend\NotFound'
-    '@action':     'index'
+    '@package':    'MOC.Redirects'
+    '@controller': 'Redirect'
+    '@action':     'redirect'
     '@format':     'html'
   routeParts:
     'path':
       handler:     'MOC\Redirects\Routing\RedirectFrontendNodeRoutePartHandler'
+  appendExceedingArguments: TRUE

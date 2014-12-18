@@ -8,6 +8,7 @@ use TYPO3\TYPO3CR\Domain\Model\Node;
 class RedirectController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 	/**
+	 * @Flow\Inject
 	 * @var LinkingService
 	 */
 	protected $linkingService;
@@ -18,8 +19,8 @@ class RedirectController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 *
 	 * @Flow\IgnoreValidation("node")
 	 */
-	public function showAction(Node $node) {
-		$this->redirectToUri($this->linkingService->createNodeUri($this->controllerContext, $node));
+	public function redirectAction(Node $node) {
+		$this->redirectToUri($this->linkingService->createNodeUri($this->controllerContext, $node), 0, 301);
 	}
 
 }

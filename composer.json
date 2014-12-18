@@ -1,13 +1,14 @@
 {
-    "name": "moc/redirects",
-    "type": "typo3-flow-package",
-    "description": "TYPO3 Neos package that allows for entering an old URL that will be redirected to the page",
-    "require": {
+	"name": "moc/redirects",
+	"type": "typo3-flow-package",
+	"description": "TYPO3 Neos package that allows for entering an old URL that will be redirected to the page",
+	"license": "LGPL-3.0+",
+	"require": {
 		"typo3/neos": "1.2.*"
-    },
-    "autoload": {
-        "psr-0": {
-            "MOC\\Redirects": "Classes"
-        }
-    }
+	},
+	"autoload": {
+		"psr-0": {
+			"MOC\\Redirects": "Classes"
+		}
+	}
 }

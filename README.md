@@ -30,7 +30,7 @@ Installation
 ------------
 The package can be easily installed by using composer - just add the following line to your `composer.json` file:
 
-```composer require "moc/redirects" "1.0.*"```
+```"moc/redirects": "1.0.*"```
 
 Put this in your global Configuration/Routes.yaml
 ```yaml

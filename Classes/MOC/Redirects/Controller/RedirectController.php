@@ -20,7 +20,7 @@ class RedirectController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @Flow\IgnoreValidation("node")
 	 */
 	public function redirectAction(Node $node) {
-		$this->redirectToUri($this->linkingService->createNodeUri($this->controllerContext, $node), 0, 301);
+		$this->redirectToUri($this->linkingService->createNodeUri($this->controllerContext, $node, NULL, NULL, TRUE, array(), '', TRUE), 0, 301);
 	}
 
 }

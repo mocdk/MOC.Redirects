@@ -40,8 +40,10 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart {
 	protected function matchValue($requestPath) {
 		/** @var Uri $uri */
 		$uri = $this->bootstrap->getActiveRequestHandler()->getHttpRequest()->getUri();
-		$relativeUrl = $uri->getPath() . ($uri->getQuery() ? '?' . $uri->getQuery() : '');
+		$relativeUrl = rtrim($uri->getPath(), '/');
+		$relativeUrlWithQueryString = $relativeUrl . ($uri->getQuery() ? '?' . $uri->getQuery() : '');
 		$absoluteUrl = $uri->getHost() . $relativeUrl;
+		$absoluteUrlWithQueryString = $uri->getHost() . $relativeUrlWithQueryString;
 
 		/** @var QueryBuilder $queryBuilder */
 		$queryBuilder = $this->entityManager->createQueryBuilder();
@@ -52,7 +54,7 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart {
 			->where('n.workspace = :workspace')
 			->setParameter('workspace', 'live')
 			->andWhere('n.properties LIKE :relativeUrl')
-			->setParameter('relativeUrl', '%' . $relativeUrl . '%');
+			->setParameter('relativeUrl', '%"redirectUrl"%' . rtrim($uri->getPath(), '/') . '%');
 
 		$query = $queryBuilder->getQuery();
 		$nodes = $query->getResult();
@@ -65,7 +67,7 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart {
 			/** @var NodeData $node */
 			// Prevent partial matches
 			$redirectUrl =  preg_replace('#^https?://#', '', $node->getProperty('redirectUrl'));
-			if ($redirectUrl === $absoluteUrl || $redirectUrl === $relativeUrl) {
+			if (in_array($redirectUrl, array($relativeUrl, $relativeUrlWithQueryString, $absoluteUrl, $absoluteUrlWithQueryString), TRUE)) {
 				$matchingNode = $node;
 				break;
 			}

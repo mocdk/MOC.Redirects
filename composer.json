@@ -4,7 +4,8 @@
 	"description": "TYPO3 Neos package that allows for entering an old URL that will be redirected to the page",
 	"license": "LGPL-3.0+",
 	"require": {
-		"typo3/neos": "1.2.*"
+		"typo3/neos": "1.2.*",
+		"swisscom/neos-caseinsensitiveurls": "@dev"
 	},
 	"autoload": {
 		"psr-0": {

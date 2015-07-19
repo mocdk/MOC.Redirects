@@ -28,7 +28,9 @@ Examples:
 
 Installation
 ------------
-composer require "moc/redirects" "1.0.*"
+The package can be easily installed by using composer - just add the following line to your `composer.json` file:
+
+```"moc/redirects": "1.0.*"```
 
 Put this in your global Configuration/Routes.yaml
 ```yaml

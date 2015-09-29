@@ -48,6 +48,10 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
         $absoluteUrl = $uri->getHost() . $relativeUrl;
         $absoluteUrlWithQueryString = $uri->getHost() . $relativeUrlWithQueryString;
 
+        if (empty($relativeUrl)) {
+            return false;
+        }
+
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->entityManager->createQueryBuilder();
 

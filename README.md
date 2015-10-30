@@ -1,11 +1,17 @@
 MOC.Redirects
 =============
 
-TYPO3 Neos package that allows for entering an old URL that will be redirected to the page.
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mocdk/MOC.Redirects/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mocdk/MOC.Redirects/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/moc/redirects/v/stable)](https://packagist.org/packages/moc/redirects)
+[![Total Downloads](https://poser.pugx.org/moc/redirects/downloads)](https://packagist.org/packages/moc/redirects)
+[![License](https://poser.pugx.org/moc/redirects/license)](https://packagist.org/packages/moc/redirects)
 
-Depends on TYPO3 Neos 1.2
+Introduction
+------------
 
-> !!! Not compatible with language dimensions.
+Neos CMS package that allows for entering an old URL that will be redirected to the page.
+
+**!!! Not compatible with language dimensions**
 
 Matches relative and absolute URLs regardless of schema (http/https) including query string (hash is ignored).
 
@@ -28,7 +34,7 @@ Examples:
 
 Installation
 ------------
-composer require "moc/redirects" "1.0.*"
+composer require "moc/redirects:~2.0"
 
 Put this in your global Configuration/Routes.yaml
 ```yaml

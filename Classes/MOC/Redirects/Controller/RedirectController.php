@@ -23,8 +23,11 @@ class RedirectController extends ActionController
      */
     public function redirectAction(Node $node)
     {
-        $this->redirectToUri($this->linkingService->createNodeUri($this->controllerContext, $node, null, null, true,
-          array(), '', true), 0, 301);
+        $this->redirectToUri(
+            $this->linkingService->createNodeUri($this->controllerContext, $node, null, null, true, array(), '', true),
+            0,
+            301
+        );
     }
 
 }

@@ -11,6 +11,8 @@ Introduction
 
 Neos CMS package that allows for entering an old URL that will be redirected to the page.
 
+Compatible with Neos 1.x-2.x+
+
 **!!! Not compatible with language dimensions**
 
 Matches relative and absolute URLs regardless of schema (http/https) including query string (hash is ignored).

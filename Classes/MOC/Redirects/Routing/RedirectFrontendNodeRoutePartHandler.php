@@ -61,7 +61,7 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
           ->where('n.workspace = :workspace')
           ->setParameter('workspace', 'live')
           ->andWhere('n.properties LIKE :relativeUrl')
-          ->setParameter('relativeUrl', '%"redirectUrl"%' . $relativeUrl . '%');
+          ->setParameter('relativeUrl', '%"redirectUrl"%' . json_encode($relativeUrl) . '%');
 
         $query = $queryBuilder->getQuery();
         $nodes = $query->getResult();

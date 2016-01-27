@@ -36,8 +36,8 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
     }
 
     /**
-     * @param $haystack
-     * @param $needle
+     * @param string $haystack
+     * @param string $needle
      * @return bool
      */
     function endsWith($haystack, $needle) {
@@ -45,8 +45,8 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
     }
 
     /**
-     * @param $haystack
-     * @param $needle
+     * @param string $haystack
+     * @param string $needle
      * @return bool
      */
     function startsWith($haystack, $needle) {

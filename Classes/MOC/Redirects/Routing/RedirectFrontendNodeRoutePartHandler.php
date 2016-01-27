@@ -35,15 +35,23 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
         return $requestPath;
     }
 
-
+    /**
+     * @param $haystack
+     * @param $needle
+     * @return bool
+     */
     function endsWith($haystack, $needle) {
         return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
     }
 
+    /**
+     * @param $haystack
+     * @param $needle
+     * @return bool
+     */
     function startsWith($haystack, $needle) {
         return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
     }
-
 
     /**
      * @param string $requestPath
@@ -54,8 +62,8 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
         /** @var Uri $uri */
         $uri = $this->bootstrap->getActiveRequestHandler()->getHttpRequest()->getUri();
         $relativeUrl = rtrim($uri->getPath(), '/');
-        if($this->startsWith($relativeUrl,'/') === TRUE){
-            $tempRelativeUrl = substr($relativeUrl,1);
+        if($this->startsWith($relativeUrl, '/')){
+            $tempRelativeUrl = substr($relativeUrl, 1);
         }
         $relativeUrlWithQueryString = $relativeUrl . ($uri->getQuery() ? '?' . $uri->getQuery() : '');
         $absoluteUrl = $uri->getHost() . $relativeUrl;
@@ -73,7 +81,7 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
             ->where('n.workspace = :workspace')
             ->setParameter('workspace', 'live')
             ->andWhere('n.properties LIKE :relativeUrl')
-            ->setParameter('relativeUrl', '%"redirectUrl"%' . str_replace('/', '\\\\\\/',$tempRelativeUrl) . '%');
+            ->setParameter('relativeUrl', '%"redirectUrl"%' . str_replace('/', '\\\\\\/', $tempRelativeUrl) . '%');
         $query = $queryBuilder->getQuery();
         $nodes = $query->getResult();
         if (empty($nodes)) {
@@ -104,7 +112,6 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
 
         $this->setName('node');
         $this->value = $matchingNode->getPath();
-//        \TYPO3\Flow\var_dump($this->value);die;
         return true;
     }
 

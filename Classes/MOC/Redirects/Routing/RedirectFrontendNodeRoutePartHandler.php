@@ -40,7 +40,7 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
      * @param string $needle
      * @return bool
      */
-    function endsWith($haystack, $needle) {
+    protected function endsWith($haystack, $needle) {
         return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
     }
 
@@ -49,7 +49,7 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
      * @param string $needle
      * @return bool
      */
-    function startsWith($haystack, $needle) {
+    protected function startsWith($haystack, $needle) {
         return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
     }
 
@@ -92,11 +92,11 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
             /** @var NodeData $node */
             // Prevent partial matches
             $redirectUrl = preg_replace('#^https?://#', '', $node->getProperty('redirectUrl'));
-            if($this->endsWith($redirectUrl,'/') === TRUE){
+            if($this->endsWith($redirectUrl, '/') === TRUE){
                 $redirectUrl = substr($redirectUrl, 0, -1);
             }
-            if($this->startsWith($relativeUrl,'/') === TRUE){
-                $relativeUrl = substr($relativeUrl,1);
+            if($this->startsWith($relativeUrl, '/') === TRUE){
+                $relativeUrl = substr($relativeUrl, 1);
             }
 
             if (in_array($redirectUrl,

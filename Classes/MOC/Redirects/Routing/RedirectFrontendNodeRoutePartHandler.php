@@ -36,6 +36,24 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
     }
 
     /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    protected function endsWith($haystack, $needle) {
+        return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
+    }
+
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    protected function startsWith($haystack, $needle) {
+        return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
+    }
+
+    /**
      * @param string $requestPath
      * @return boolean TRUE if the $requestPath could be matched, otherwise FALSE
      */
@@ -44,6 +62,9 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
         /** @var Uri $uri */
         $uri = $this->bootstrap->getActiveRequestHandler()->getHttpRequest()->getUri();
         $relativeUrl = rtrim($uri->getPath(), '/');
+        if($this->startsWith($relativeUrl, '/')){
+            $tempRelativeUrl = substr($relativeUrl, 1);
+        }
         $relativeUrlWithQueryString = $relativeUrl . ($uri->getQuery() ? '?' . $uri->getQuery() : '');
         $absoluteUrl = $uri->getHost() . $relativeUrl;
         $absoluteUrlWithQueryString = $uri->getHost() . $relativeUrlWithQueryString;
@@ -54,18 +75,15 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
 
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->entityManager->createQueryBuilder();
-
         $queryBuilder->select('n')
-          ->distinct()
-          ->from('TYPO3\TYPO3CR\Domain\Model\NodeData', 'n')
-          ->where('n.workspace = :workspace')
-          ->setParameter('workspace', 'live')
-          ->andWhere('n.properties LIKE :relativeUrl')
-          ->setParameter('relativeUrl', '%"redirectUrl"%' . addslashes(json_encode($relativeUrl)) . '%');
-
+            ->distinct()
+            ->from('TYPO3\TYPO3CR\Domain\Model\NodeData', 'n')
+            ->where('n.workspace = :workspace')
+            ->setParameter('workspace', 'live')
+            ->andWhere('n.properties LIKE :relativeUrl')
+            ->setParameter('relativeUrl', '%"redirectUrl"%' . str_replace('/', '\\\\\\/', $tempRelativeUrl) . '%');
         $query = $queryBuilder->getQuery();
         $nodes = $query->getResult();
-
         if (empty($nodes)) {
             return false;
         }
@@ -74,20 +92,26 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
             /** @var NodeData $node */
             // Prevent partial matches
             $redirectUrl = preg_replace('#^https?://#', '', $node->getProperty('redirectUrl'));
+            if($this->endsWith($redirectUrl, '/') === TRUE){
+                $redirectUrl = substr($redirectUrl, 0, -1);
+            }
+            if($this->startsWith($relativeUrl, '/') === TRUE){
+                $relativeUrl = substr($relativeUrl, 1);
+            }
+
             if (in_array($redirectUrl,
-              array($relativeUrl, $relativeUrlWithQueryString, $absoluteUrl, $absoluteUrlWithQueryString), true)) {
+                array($relativeUrl, $relativeUrlWithQueryString, $absoluteUrl, $absoluteUrlWithQueryString), true)) {
+
                 $matchingNode = $node;
                 break;
             }
         }
-
         if (!isset($matchingNode)) {
             return false;
         }
 
         $this->setName('node');
         $this->value = $matchingNode->getPath();
-
         return true;
     }
 

@@ -78,7 +78,7 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart {
 		}
 
 		$this->setName('node');
-		$this->value = $matchingNode->getPath();
+		$this->value = $matchingNode->getContextPath();
 
 		return TRUE;
 	}

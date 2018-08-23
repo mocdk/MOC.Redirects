@@ -1,5 +1,5 @@
 -
-  name:  'TYPO3 Neos - Frontend - Redirect'
+  name:  'Neos - Frontend - Redirect'
   uriPattern: '{path}'
   defaults:
     '@package':    'MOC.Redirects'

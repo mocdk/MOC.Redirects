@@ -1,11 +1,12 @@
+
 'MOC.Redirects:RedirectUrlMixin':
-  abstract: TRUE
+  abstract: true
   ui:
     inspector:
       groups:
         redirect:
-          label: 'Redirect'
-          tab: 'meta'
+          label: Redirect
+          tab: meta
           position: 999
   properties:
     redirectUrl:
@@ -13,10 +14,9 @@
       ui:
         label: 'Redirect URL'
         inspector:
-          group: 'redirect'
+          group: redirect
           editorOptions:
             placeholder: 'E.g. acme.com/test.html'
-
-'TYPO3.Neos:Document':
+'Neos.Neos:Document':
   superTypes:
-    'MOC.Redirects:RedirectUrlMixin': 'MOC.Redirects:RedirectUrlMixin'
+    'MOC.Redirects:RedirectUrlMixin': true

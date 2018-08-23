@@ -2,11 +2,11 @@
 namespace MOC\Redirects\Routing;
 
 use Doctrine\ORM\QueryBuilder;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Core\Bootstrap;
-use TYPO3\Flow\Http\Uri;
-use TYPO3\Flow\Mvc\Routing\DynamicRoutePart;
-use TYPO3\TYPO3CR\Domain\Model\NodeData;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Core\Bootstrap;
+use Neos\Flow\Http\Uri;
+use Neos\Flow\Mvc\Routing\DynamicRoutePart;
+use Neos\ContentRepository\Domain\Model\NodeData;
 
 /**
  * A route part handler for finding nodes specifically in the website's frontend.
@@ -56,7 +56,7 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder->select('n')
             ->distinct()
-            ->from('TYPO3\TYPO3CR\Domain\Model\NodeData', 'n')
+            ->from('Neos\ContentRepository\Domain\Model\NodeData', 'n')
             ->where('n.workspace = :workspace')
             ->setParameter('workspace', 'live')
             ->andWhere('n.properties LIKE :relativeUrl')
@@ -72,7 +72,7 @@ class RedirectFrontendNodeRoutePartHandler extends DynamicRoutePart
             /** @var NodeData $node */
             // Prevent partial matches
             $redirectUrl = trim(preg_replace('#^https?://#', '', $node->getProperty('redirectUrl')), '/');
-            if (in_array($redirectUrl, array($relativeUrl, $relativeUrlWithQueryString, $absoluteUrl, $absoluteUrlWithQueryString), true)) {
+            if (in_array($redirectUrl, [$relativeUrl, $relativeUrlWithQueryString, $absoluteUrl, $absoluteUrlWithQueryString], true)) {
                 $matchingNode = $node;
                 break;
             }

@@ -1,10 +1,10 @@
 <?php
 namespace MOC\Redirects\Controller;
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
-use TYPO3\Neos\Service\LinkingService;
-use TYPO3\TYPO3CR\Domain\Model\Node;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Controller\ActionController;
+use Neos\Neos\Service\LinkingService;
+use Neos\ContentRepository\Domain\Model\Node;
 
 class RedirectController extends ActionController
 {
@@ -24,7 +24,7 @@ class RedirectController extends ActionController
     public function redirectAction(Node $node)
     {
         $this->redirectToUri(
-            $this->linkingService->createNodeUri($this->controllerContext, $node, null, null, true, array(), '', true),
+            $this->linkingService->createNodeUri($this->controllerContext, $node, null, null, true, [], '', true),
             0,
             301
         );

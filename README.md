@@ -11,7 +11,7 @@ Introduction
 
 Neos CMS package that allows for entering an old URL that will be redirected to the page.
 
-Compatible with Neos 1.x-2.x+
+Compatible with Neos 4.x, 3.x
 
 **!!! Not compatible with language dimensions**
 
@@ -36,14 +36,4 @@ Examples:
 
 Installation
 ------------
-composer require "moc/redirects:~2.0"
-
-Put this in your global Configuration/Routes.yaml
-```yaml
--
-  name: 'MOC Redirects'
-  uriPattern: '<MOCRedirectsSubroutes>'
-  subRoutes:
-    'MOCRedirectsSubroutes':
-      package: 'MOC.Redirects'
-```
+composer require "moc/redirects:~3.0"
